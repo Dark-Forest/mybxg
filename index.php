@@ -11,8 +11,8 @@
        $path = $_SERVER['PATH_INFO'];
        //echo $path;
     // 去掉路径中的第一个斜杠
-       $str = substr($path,1); //  main/index
-       // 分割路径和文件名称---路径有两级
+        $str = substr($path,1);  //  main/index
+       // 分割路径和文件名称---路径有两级  ---该方法与js中的split类似
        $arr = explode('/',$str);
        if(count($arr) == 2){
         //覆盖默认路径
@@ -25,10 +25,25 @@
     }
 
 
-      // 路径的格式
-      //  /main/index    /main/login
-      //  /teacher/list       /teacher/add
+    // 路径的格式
+    //  /main/index    /main/login
+    //  /teacher/list       /teacher/add
     // 在当前页码嵌入一个子页面
-    include('./views/'.$dir.'/'. $filename.'.html');
+     include('./views/'.$dir.'/'.$filename.'.html');
+
+     /*
+      变量命名方式
+      分支结构
+      字符串拼接.
+      include关键字作用：嵌入子页面
+      常用api
+      1、array_key_exists() 判断数组中是否包含指定的key
+      2、substr() 截取字符串
+      3、explode() 分割字符串
+      4、count() 统计数组的长度
+      5、数组的基本使用
+      echo
+      print_r()
+      var_dump()*/
 
 ?>
