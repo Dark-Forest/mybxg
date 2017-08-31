@@ -1,39 +1,70 @@
 /**
  * Created by Administrator on 2017/8/31.
  */
-define(['jquery','template','bootstrap'],function($,template){
+define(['jquery', 'template', 'bootstrap'], function ($, template) {
     //调用后台接口获取列表数据
     $.ajax({
         type: 'get',
-        url :'/api/teacher',
-        dataType : 'json',
-        success : function(data){
+        url: '/api/teacher',
+        dataType: 'json',
+        success: function (data) {
             //console.log(data);
-            //解析数据渲染页面
-            var html = template('teacherTpl',{list:data.result});
+            //解析数据渲染讲师列表页面
+            var html = template('teacherTpl', {list: data.result});
             $('#teacherInfo').html(html);
 
             //绑定预览单击事件（绑定这个按钮的时候，是后台返回的数据渲染的页面）
-            $('.preview').click(function(){
+            $('.preview').click(function () {
                 //alert('123');
                 //获取当前记录ID
                 var td = $(this).closest('td');
                 var tcId = td.attr('data-tcId');
                 //根据ID查询数据
                 $.ajax({
-                    type : 'get',
-                    url : '/api/teacher/view',
-                    data : {tc_id : tcId},
-                    dataType : 'json',
-                    success : function(data){
+                    type: 'get',
+                    url: '/api/teacher/view',
+                    data: {tc_id: tcId},
+                    dataType: 'json',
+                    success: function (data) {
                         //console.log(data);
                         //解析数据渲染页面
-                        var html = template('modalTpl',data.result);
+                        var html = template('modalTpl', data.result);
                         $("#modalInfo").html(html);
                         //显示弹窗
                         $('#teacherModal').modal();
                     }
                 });
+            });
+            //控制启用和注销
+            $(".eod").click(function () {
+                //获取当前记录ID
+                var td = $(this).closest('td');
+                var tcId = td.attr('data-tcId');
+                var tcStatus = td.attr('data-status');//获取当前状态，作为参数传给后台
+                //缓存this
+                var that = this;
+
+                //调用接口-发送请求
+                $.ajax({
+                    type: 'get',
+                    url: '/api/teacher/handle',
+                    data: {tc_id: tcId, tc_status: tcStatus},
+                    dataType: 'json',
+                    success: function (data) {
+                        //console.log(data);
+                        if(data.code == 200){
+                            //修改当前状态--后台返回的数据覆盖
+                            td.attr('data-status',data.result.tc_status);
+                            //修改文字信息
+                            if(data.result.tc_status == 0){
+                                $(that).html('注销');
+                            }else{
+                                $(that).html('启用');
+                            }
+                        }
+                    }
+                });
+
             });
         }
     });
