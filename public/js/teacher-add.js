@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2017/9/1.
  */
-define(['jquery', 'template', 'util','datepicker','language','validate'], function ($, template, util) {
+define(['jquery', 'template', 'util', 'datepicker', 'language', 'validate', 'form'], function ($, template, util) {
     //设置菜单选中-对应 讲师管理
     util.setMenu('/teacher/list');  //路径写死-不传递此时路径location.pathname\
     //获取编辑的讲师ID
@@ -25,36 +25,46 @@ define(['jquery', 'template', 'util','datepicker','language','validate'], functi
         });
     } else {
         //添加讲师操作
-        var html = template('teacherTpl',{operate : '添加讲师',tc_gender : 1});
+        var html = template('teacherTpl', {operate: '添加讲师', tc_gender: 1});
         $('#teacherInfo').html(html);
 
         //提交添加讲师表单---/api/teacher/add
         submitForm('/api/teacher/add');
     }
     //提交表单公用方法
-    function submitForm(url){
-       $('#teacherForm').validate({
-           sendForm : false,  //禁止默认提交
-           valid : function(){
-               //console.log('ok');
-               //这里应该提交表单
-           },
-           description : {
-               tc_name :{
-                  required : '请输入用户名',
-                  valid : '用户名可用'
-               },
-               tc_pass:{
-                   required : '请输入密码',
-                   pattern : '密码必须是6位数字',
-                   valid : '密码有效'
-               },
-               tc_join_date :{
-                   required : '请输入日期',
-                   valid : '日期有效'
-               }
-           }
-       });
+    function submitForm(url) {
+        $('#teacherForm').validate({
+            sendForm: false,  //禁止默认提交
+            valid: function () {
+                //console.log('ok');
+                //这里应该提交表单
+                $(this).ajaxSubmit({
+                    type: 'post',
+                    url: url,
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.code == 200) {
+                            location.href = '/teacher/list';//返回列表页
+                        }
+                    }
+                });
+            },
+            description: {
+                tc_name: {
+                    required: '请输入用户名',
+                    valid: '用户名可用'
+                },
+                tc_pass: {
+                    required: '请输入密码',
+                    pattern: '密码必须是6位数字',
+                    valid: '密码有效'
+                },
+                tc_join_date: {
+                    required: '请输入日期',
+                    valid: '日期有效'
+                }
+            }
+        });
     }
 
     //function submitForm(url) {
