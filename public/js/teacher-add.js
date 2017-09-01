@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2017/9/1.
  */
-define(['jquery', 'template', 'util'], function ($, template, util) {
+define(['jquery', 'template', 'util','datepicker','language'], function ($, template, util) {
     //设置菜单选中-对应 讲师管理
     util.setMenu('/teacher/list');  //路径写死-不传递此时路径location.pathname\
     //获取编辑的讲师ID
