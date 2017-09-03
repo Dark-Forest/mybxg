@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2017/9/2.
  */
-define(['jquery','template','util','ckeditor','uploadify','datepicker','language','region','validate','form'],function($,template,util,CKEDITOR){
+define(['jquery','template','util','ckeditor','uploadify','datepicker','language','region','validate','form','state'],function($,template,util,CKEDITOR){
     // 设置导航菜单选中
     util.setMenu('/main/index');
     //调用后台接口 填充表单
@@ -53,7 +53,7 @@ define(['jquery','template','util','ckeditor','uploadify','datepicker','language
                     var c = $('#c option:selected').text();
                     var d = $('#d option:selected').text();
                     var hometown = p + '|' + c + '|' + d;
-                    // 所有验证都通过，提交表单
+                    // 所有验证都通过，提交表单--jquery-form插件
                     $(this).ajaxSubmit({
                         type : 'post',
                         url : '/api/teacher/modify',
