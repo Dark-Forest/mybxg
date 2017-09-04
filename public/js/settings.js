@@ -24,6 +24,8 @@ define(['jquery','template','util','ckeditor','uploadify','datepicker','language
                 fileObjName : 'tc_avatar',
                 onUploadSuccess : function(f,data){
                     var data = JSON.parse(data);
+                    //var data = JSON.parse(data.trim());
+                    // var data = eval('(' +data+ ')');
                     // 重置头像的图片地址
                     $('.preview img').attr('src',data.result.path);
                 }
