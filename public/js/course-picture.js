@@ -17,7 +17,21 @@ define(['jquery','template','util','uploadify'],function($,template,util){
             var html=template('pictureTpl',data.result);
             $('#pictureInfo').html(html);
             // 处理封面上传
-
+            $('#upfile').uploadify({
+                width : 80,
+                height : 'auto',
+                buttonText : '选择图片',
+                itemTemplate :'<span></span>',
+                buttonClass : 'btn btn-success btn-sm',
+                swf : '/public/assets/uploadify/uploadify.swf',
+                uploader : '/api/uploader/cover',
+                fileObjName : 'cs_cover_original',
+                formData : {cs_id : csId},
+                onUploadSuccess : function(f,data){
+                    data = JSON.parse(data);
+                    $('.preview img').attr('src',data.result.path);
+                }
+            });
         }
     });
 });
