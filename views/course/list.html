@@ -47,6 +47,7 @@
                             </div>
                         </form>
                     </div>
+
                     <div id="courseInfo">
                         <!--挖坑啦！-->
                     </div>
@@ -67,21 +68,21 @@
 
     <!--课程列表模板-->
     <script type="text/template" id="courseTpl">
-    {{each list}}
-    <div class="course">
-        <div class="pic">
-            {{if $value.cs_cover}}
-            <img src="{{ $value.cs_cover}}" >
-            {{else}}
-            <img src="/uploads/course.png">
-            {{/if}}
-        </div>
+        {{each list}}
+        <div class="course">
+            <div class="pic">
+                {{if $value.cs_cover}}
+                <img src="{{$value.cs_cover}}">
+                {{else}}
+                <img src="/uploads/course.png">
+                {{/if}}
+            </div>
         <div class="info">
-            <a href="/course/basic?cs_id={{$value.cs_id}}">{{ $value.cs_name}}</a>
+            <a href="/course/basic?flag=1&cs_id={{$value.cs_id}}">{{$value.cs_name}}</a>
             <ul class="list-unstyled">
                 <li>
-                    <span>讲师：{{ $value.tc_name}}</span>
-                    <span>类别：{{ $value.cg_name}}</span>
+                    <span>讲师：{{$value.tc_name}}</span>
+                    <span>类别：{{$value.cg_name}}</span>
                 </li>
             </ul>
         </div>

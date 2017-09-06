@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2017/9/4.
  */
-define(['jquery', 'template', 'util','ckeditor','validate','form'], function ($, template, util,CKEDITOR) {
+define(['jquery','template','util','ckeditor','validate','form'],function($,template,util,CKEDITOR){
     // 设置导航菜单选中
     util.setMenu('/course/add');
     //获取课程ID
@@ -10,15 +10,15 @@ define(['jquery', 'template', 'util','ckeditor','validate','form'], function ($,
     var flag = util.qs('flag');
     //根据Id调用接口，查询课程详细信息
     $.ajax({
-        type: 'get',
-        url: '/api/course/basic',
-        data: {cs_id: csId},
-        dataType: 'json',
-        success: function (data) {
+        type : 'get',
+        url : '/api/course/basic',
+        data : {cs_id : csId},
+        dataType : 'json',
+        success : function(data){
             // 解析数据，渲染页面
-            if (flag) {
+            if(flag){
                 data.result.operate = '课程编辑';
-            } else {
+            }else{
                 data.result.operate = '课程添加';
             }
             var html = template('basicTpl', data.result);
@@ -29,13 +29,13 @@ define(['jquery', 'template', 'util','ckeditor','validate','form'], function ($,
                 //先获取当前的一级分类的ID-根据此调取接口，得到子节点
                 var fId = $(this).val();
                 $.ajax({
-                    type: 'get',
-                    url: '/api/category/child',
-                    data: {cg_id: fId},
-                    dataType: 'json',
-                    success: function (data) {
+                    type : 'get',
+                    url : '/api/category/child',
+                    data : {cg_id : fId},
+                    dataType : 'json',
+                    success : function(data){
                         var tpl = '<option value="">请选择二级分类...</option>{{each list}}<option value="{{$value.cg_id}}">{{$value.cg_name}}</option>{{/each}}';
-                        var html = template.render(tpl, {list: data.result});
+                        var html = template.render(tpl,{list:data.result});
                         $('#secondType').html(html);
                     }
                 });
@@ -59,7 +59,7 @@ define(['jquery', 'template', 'util','ckeditor','validate','form'], function ($,
                         dataType : 'json',
                         success : function(data){
                             if(data.code == 200){
-                                location.href = '/course/picture?cs_id='+data.result.cs_id;
+                                location.href = '/course/picture?cs_id=' + data.result.cs_id;
                             }
                         }
                     });

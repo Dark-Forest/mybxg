@@ -85,10 +85,10 @@
                     <div class="form-group">
                         <label for="" class="col-xs-2 control-label">讲师</label>
                         <div class="col-xs-8">
-                            <select name="" class="form-control input-sm">
+                            <select name="cs_tc_id" class="form-control input-sm">
                                 <option value="0">请选择讲师...</option>
                                 {{each teacher}}
-                                    <option {{if cs_tc_id==$value.tc_id}}selected{{/if}} value="{{$value.tc_id}}">{{$value.tc_name}}</option>
+                                <option {{if cs_tc_id==$value.tc_id}}selected{{/if}} value="{{$value.tc_id}}">{{$value.tc_name}}</option>
                                 {{/each}}
                             </select>
                         </div>
